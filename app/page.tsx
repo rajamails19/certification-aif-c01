@@ -7,6 +7,13 @@ import {
   type Domain,
   type Question,
 } from "./question-bank";
+import {
+  test3Questions,
+  test4Questions,
+  test5Questions,
+  test6Questions,
+  test7Questions,
+} from "./additional-question-bank";
 type Test = {
   id: number;
   title: string;
@@ -35,6 +42,51 @@ const tests: Test[] = [
     minutes: 35,
     accent: "violet",
     questions: testTwoQuestions,
+  },
+  {
+    id: 3,
+    title: "Practice Test 03",
+    subtitle: "Model selection · Evaluation · MLOps",
+    level: "Exam Ready",
+    minutes: 35,
+    accent: "orange",
+    questions: test3Questions,
+  },
+  {
+    id: 4,
+    title: "Practice Test 04",
+    subtitle: "GenAI services · Security · Governance",
+    level: "Exam Ready",
+    minutes: 35,
+    accent: "violet",
+    questions: test4Questions,
+  },
+  {
+    id: 5,
+    title: "Practice Test 05",
+    subtitle: "Prompting · Responsible AI · Metrics",
+    level: "Advanced",
+    minutes: 35,
+    accent: "orange",
+    questions: test5Questions,
+  },
+  {
+    id: 6,
+    title: "Practice Test 06",
+    subtitle: "AWS AI services · Operations · Privacy",
+    level: "Advanced",
+    minutes: 35,
+    accent: "violet",
+    questions: test6Questions,
+  },
+  {
+    id: 7,
+    title: "Practice Test 07",
+    subtitle: "Full-spectrum certification review",
+    level: "Final Prep",
+    minutes: 35,
+    accent: "orange",
+    questions: test7Questions,
   },
 ];
 
@@ -120,6 +172,12 @@ export default function Home() {
         setAnswers(updated);
       } else {
         setAnswers({ ...answers, [current]: next });
+      }
+
+      if (!isMultiple) {
+        setRevealed((questions) =>
+          questions.includes(current) ? questions : [...questions, current],
+        );
       }
     };
 
@@ -335,11 +393,18 @@ export default function Home() {
                 ← Previous
               </button>
               <div>
-                {!revealed.includes(current) &&
+                {question.answer.length > 1 &&
+                  !revealed.includes(current) &&
                   answers[current] !== undefined && (
                     <button
                       className="check-button"
-                      onClick={() => setRevealed([...revealed, current])}
+                      onClick={() =>
+                        setRevealed((questions) =>
+                          questions.includes(current)
+                            ? questions
+                            : [...questions, current],
+                        )
+                      }
                     >
                       Check answer
                     </button>
@@ -372,119 +437,16 @@ export default function Home() {
       <div className="noise" />
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
-      <header className="topbar">
-        <div className="brand-lockup">
-          <span className="brand-mark">A</span>
-          <span>
-            <b>AIF-C01</b>
-            <small>EXAM LAB</small>
-          </span>
-        </div>
-        <nav>
-          <a href="#tests">Practice tests</a>
-          <a href="#blueprint">Exam blueprint</a>
-          <a
-            href="https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.html"
-            target="_blank"
-            rel="noreferrer"
-          >
-            AWS guide ↗
-          </a>
-        </nav>
-        <button className="profile-chip">
-          <span>RV</span>
-          <b>Raja</b>
-          <i>⌄</i>
-        </button>
-      </header>
-      <section className="hero">
-        <div className="hero-copy">
-          <div className="live-pill">
-            <i /> AIF-C01 EXAM PREP
-          </div>
-          <h1>
-            Make the cloud
-            <br />
-            <em>think with you.</em>
-          </h1>
-          <p>
-            Master AWS AI concepts through focused practice, instant
-            explanations, and exam-weighted insights.
-          </p>
-          <div className="hero-actions">
-            <button
-              className="primary-button large"
-              onClick={() => begin(tests[0])}
-            >
-              Start practice test <span>↗</span>
-            </button>
-            <a href="#blueprint">Explore the blueprint ↓</a>
-          </div>
-          <div className="trust-row">
-            <div className="avatars">
-              <span>ML</span>
-              <span>AI</span>
-              <span>FM</span>
-            </div>
-            <p>
-              <b>Built to the official blueprint</b>
-              <small>Original questions · Instant feedback</small>
-            </p>
-          </div>
-        </div>
-        <div className="readiness-card">
-          <div className="readiness-head">
-            <span>YOUR READINESS</span>
-            <i>● LIVE</i>
-          </div>
-          <div className="readiness-score">
-            <strong>68</strong>
-            <span>/100</span>
-            <div>
-              <b>On your way</b>
-              <small>+12% this week</small>
-            </div>
-          </div>
-          <div className="sparkline">
-            <i style={{ height: "24%" }} />
-            <i style={{ height: "38%" }} />
-            <i style={{ height: "34%" }} />
-            <i style={{ height: "56%" }} />
-            <i style={{ height: "48%" }} />
-            <i style={{ height: "72%" }} />
-            <i style={{ height: "68%" }} />
-            <i style={{ height: "88%" }} />
-            <i style={{ height: "100%" }} />
-          </div>
-          <div className="readiness-meta">
-            <div>
-              <span>Questions</span>
-              <b>
-                0 <small>/ 28</small>
-              </b>
-            </div>
-            <div>
-              <span>Best score</span>
-              <b>—</b>
-            </div>
-            <div>
-              <span>Study streak</span>
-              <b>
-                3 <small>days</small>
-              </b>
-            </div>
-          </div>
-          <div className="next-move">
-            <span>✦</span>
-            <div>
-              <small>RECOMMENDED NEXT</small>
-              <b>Practice Test 01</b>
-            </div>
-            <button onClick={() => begin(tests[0])}>→</button>
-          </div>
-        </div>
-      </section>
       <section className="tests-section" id="tests">
+        <div className="cert-banner">
+          <div className="cert-mark" aria-hidden="true">
+            <span>A</span>
+          </div>
+          <div className="cert-title">
+            <h1>AIF-C01</h1>
+            <p>AWS Certified AI Practitioner</p>
+          </div>
+        </div>
         <div className="section-heading">
           <div>
             <span className="eyebrow">PRACTICE ARENA</span>

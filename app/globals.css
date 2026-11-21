@@ -450,9 +450,43 @@ button {
 .tests-section {
   max-width: 1220px;
   margin: auto;
-  padding: 110px 30px;
+  padding: 22px 30px 110px;
   position: relative;
   z-index: 1;
+}
+.cert-banner {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cert-mark {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 164, 86, 0.28);
+  border-radius: 12px;
+  background: rgba(255, 150, 62, 0.1);
+  color: #ff9d47;
+}
+.cert-mark span {
+  font-size: 20px;
+  font-weight: 900;
+}
+.cert-title {
+  min-width: 0;
+}
+.cert-title h1 {
+  margin: 0 0 3px;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+.cert-title p {
+  margin: 0;
+  color: #7f8996;
+  font-size: 11px;
 }
 .section-heading {
   display: flex;
@@ -1172,7 +1206,10 @@ footer {
     flex-direction: column;
   }
   .tests-section {
-    padding: 80px 20px;
+    padding: 16px 20px 80px;
+  }
+  .cert-banner {
+    margin-bottom: 22px;
   }
   .test-card {
     grid-template-columns: 1fr;
