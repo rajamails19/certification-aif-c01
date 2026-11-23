@@ -14,6 +14,7 @@ import {
   test6Questions,
   test7Questions,
 } from "./additional-question-bank";
+import { optionExplanation } from "./option-explanations";
 type Test = {
   id: number;
   title: string;
@@ -349,13 +350,14 @@ export default function Home() {
             <div className="options">
               {question.options.map((option, index) => {
                 const show = revealed.includes(current);
+                const showDefinitions = show;
                 const selected = answers[current]?.includes(index) ?? false;
                 const state = show
                   ? question.answer.includes(index)
                     ? "correct"
                     : selected
                       ? "incorrect"
-                      : ""
+                      : "wrong"
                   : selected
                     ? "selected"
                     : "";
@@ -366,7 +368,12 @@ export default function Home() {
                     onClick={() => !show && selectOption(index)}
                   >
                     <span>{String.fromCharCode(65 + index)}</span>
-                    <p>{option}</p>
+                    <div className="option-copy">
+                      <p>{option}</p>
+                      {showDefinitions && (
+                        <small>{optionExplanation(option)}</small>
+                      )}
+                    </div>
                     <i>
                       {state === "correct"
                         ? "✓"
@@ -378,12 +385,6 @@ export default function Home() {
                 );
               })}
             </div>
-            {revealed.includes(current) && (
-              <div className="explanation">
-                <span>WHY THIS IS RIGHT</span>
-                <p>{question.explanation}</p>
-              </div>
-            )}
             <div className="question-actions">
               <button
                 className="secondary-button"
